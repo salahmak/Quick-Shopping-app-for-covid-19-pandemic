@@ -100,9 +100,23 @@ const AddForm = (props) => {
                                         onChange={props.handleTypeChange}
                                         value={props.store.type}
                                     >
-                                        <MenuItem value={"food"}>Food</MenuItem>
-                                        <MenuItem value={"some other shit"}>some other shit</MenuItem>
-                                        <MenuItem value={"plz suggest"}>plz suggest</MenuItem>
+                                        <MenuItem value={"food"}>Bakery shop</MenuItem>
+                                        <MenuItem value={"some other shit"}>Butcher</MenuItem>
+                                        <MenuItem value={"Books"}>Books</MenuItem>
+                                        <MenuItem value={"Fishmonger"}>Fishmonger</MenuItem>
+                                        <MenuItem value={"Grocery"}>Grocery</MenuItem>
+                                        <MenuItem value={"Clothing"}>Clothing</MenuItem>
+                                        <MenuItem value={"Medicine"}>Medicine</MenuItem>
+                                        <MenuItem value={"Super Market"}>Super Market</MenuItem>
+                                        <MenuItem value={"Tobacconist"}>Tobacconist</MenuItem>
+                                        <MenuItem value={"Florist"}>Florist</MenuItem>
+                                        <MenuItem value={"Hardware"}>Hardware</MenuItem>
+                                        <MenuItem value={"Optician"}>Optician</MenuItem>
+                                        <MenuItem value={"Jewellery"}>Jewellery</MenuItem>
+                                        <MenuItem value={"Oil station"}>Oil station</MenuItem>
+                                        <MenuItem value={"Library"}>Library</MenuItem>
+                                        <MenuItem value={"Other"}>Other</MenuItem>
+
                                     </Select>
                                 </FormControl>
 
