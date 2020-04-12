@@ -201,7 +201,7 @@ select {
 
 .measure {
   width: 22em;
-  max-height: 550px;
+  max-height: 270px;
   overflow-y: auto;
   overflow-x: hidden;
   padding: 20px;
