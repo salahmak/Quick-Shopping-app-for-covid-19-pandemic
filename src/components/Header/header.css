@@ -1,0 +1,51 @@
+.navbar-flex {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.navbar {
+    padding: 0px 1rem !important;
+    height: 50px;
+    background-color: #1e1f26;
+}
+
+.nav-brand {
+    color: white;
+}
+
+.profile-wrapper {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    height: 100%;
+    border-left: 1px solid #888888;
+    padding: 5px 15px;
+}
+
+.link {
+    cursor: pointer;
+}
+
+.profile-wrapper>p {
+    padding: 0px 5px;
+}
+
+.dropdown-wrap {
+    background: transparent !important;
+    border: 0 !important;
+}
+
+.dropdown-wrap:focus {
+    box-shadow: none !important;
+}
+
+
+
+
+
+p {
+    margin: 0px !important;
+}

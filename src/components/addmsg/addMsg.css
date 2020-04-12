@@ -1,0 +1,12 @@
+.alert-wrapper {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    background: transparent;
+    z-index: 1;
+}
+
+.custom-alert {
+    position: fixed !important;
+}
