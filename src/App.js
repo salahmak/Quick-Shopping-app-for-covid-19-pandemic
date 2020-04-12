@@ -20,7 +20,7 @@ const initialState = {
   currentMarker: {},
   formStage: "basic",
   signedIn: false,
-  route: 'login',
+  route: 'register',
   loading: false,
   buttonLoading: false,
   addMsg: false,
