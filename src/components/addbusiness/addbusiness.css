@@ -35,12 +35,12 @@ select {
   align-items: center;
 }
 
-.item-input-wrapper>div {
+.item-input-wrapper > div {
   margin: 5px;
   margin-top: 0;
 }
 
-.item-input-wrapper>button {
+.item-input-wrapper > button {
   width: auto;
 }
 
@@ -201,7 +201,7 @@ select {
 
 .measure {
   width: 22em;
-  max-height: 270px;
+  max-height: 350px;
   overflow-y: auto;
   overflow-x: hidden;
   padding: 20px;
