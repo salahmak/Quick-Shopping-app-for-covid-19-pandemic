@@ -80,7 +80,7 @@ class App extends Component {
           this.setState({ loading: false, user: initialState.user, route: 'login' })
         })
     } else {
-      this.setState({ loading: false, user: initialState.user, route: 'login' })
+      this.setState({ loading: false, user: initialState.user, route: 'register' })
     }
   }
 
