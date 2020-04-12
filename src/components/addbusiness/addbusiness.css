@@ -11,6 +11,7 @@
   z-index: 9;
   background-color: transparent;
   position: sticky;
+  overflow: hidden;
 }
 
 .form {
@@ -25,7 +26,7 @@ select {
   margin-top: 30px;
   width: 100%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
 }
 
@@ -141,6 +142,10 @@ select {
   background-color: #000;
 }
 
+.tc {
+  text-align: center;
+}
+
 .pa0 {
   padding: 0;
 }
@@ -150,7 +155,7 @@ select {
 }
 
 .pa4 {
-  padding: 2rem;
+  padding: 1rem;
 }
 
 .pv2 {

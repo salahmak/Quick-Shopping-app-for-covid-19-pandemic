@@ -56,8 +56,8 @@ const StoreCard = (props) => {
         return (
             <div className="form-wrapper">
                 <main className="form pa4 black-80">
-                    <legend className="f4 fw6 ph0 mh0">{props.store.name}</legend>
-                    <legend className="f6 fw6 ph0 mh0">{props.store.type}</legend>
+                    <legend className="f4 fw6 ph0 mh0 tc">{props.store.name}</legend>
+                    <legend className="f6 fw6 ph0 mh0 tc">{props.store.type}</legend>
                     <form className={`measure center`} noValidate autoComplete="off">
                         <fieldset id="basic-add-form" className="ba b--transparent ph0 mh0">
                             {

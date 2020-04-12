@@ -34,11 +34,13 @@ select {
     margin-top: 30px;
     width: 100%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
 }
 
-
+.tc {
+    text-align: center;
+}
 
 .item-input-wrapper {
     display: flex;
