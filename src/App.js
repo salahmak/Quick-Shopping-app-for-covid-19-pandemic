@@ -43,9 +43,9 @@ const initialState = {
   //user
 
   user: {
-    id: "someif",
-    name: "exapmpe",
-    email: "sqd@sd.l"
+    id: "",
+    name: "",
+    email: ""
   }
 }
 
