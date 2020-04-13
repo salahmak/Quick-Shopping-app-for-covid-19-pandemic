@@ -43,6 +43,8 @@ const GoogleMap = (props) => {
         setSelectedStore({ ...selectedStore, items: clone })
     }
 
+
+
     const addItem = () => {
         const newItem = { name: "", quantity: "", unit: "" };
         setSelectedStore({ ...selectedStore, items: selectedStore.items.concat(newItem) })

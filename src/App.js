@@ -7,12 +7,27 @@ import Login from './components/login/login.jsx';
 import Register from './components/register/register.jsx'
 import AddMsg from './components/addmsg/addMsg.jsx'
 import Loading from './components/loading/loading.jsx'
+import Particles from 'react-particles-js'
 
 
 import { v1 as uuidv1 } from 'uuid';
 
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+
+const params = {
+  particles: {
+    number: {
+      value: 40,
+      density: {
+        enable: true,
+        value_area: 800
+      }
+    }
+  }
+}
 
 const initialState = {
   marking: false,
@@ -225,6 +240,7 @@ class App extends Component {
       return (
         <>
           {this.state.loading && <Loading />}
+          <Particles className="particles" params={params} />
           <Header routeChange={this.routeChange} signedIn={this.state.signedIn} />
           <Login loadUser={this.loadUser} routeChange={this.routeChange} />
         </>
@@ -233,6 +249,7 @@ class App extends Component {
       return (
         <>
           {this.state.loading && <Loading />}
+          <Particles className="particles" params={params} />
           <Header routeChange={this.routeChange} signedIn={this.state.signedIn} />
           <Register loadUser={this.loadUser} routeChange={this.routeChange} />
         </>
