@@ -4,8 +4,8 @@ import './addMsg.css'
 const AddMsg = () => {
     return (
         <div className="alert-wrapper">
-            <div className="alert alert-info custom-alert" role="alert">
-                <span>Please select your Store's location on the map to continue</span>
+            <div className="alert custom-alert" role="alert">
+                <span>Now select your store's location on the map</span>
             </div>
         </div>
     );
