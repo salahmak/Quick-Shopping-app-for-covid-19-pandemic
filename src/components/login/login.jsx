@@ -71,8 +71,8 @@ class Login extends Component {
                                         <label htmlFor="inputPassword">Password</label>
                                     </div>
                                     <div className="custom-control custom-checkbox mb-3">
-                                        <input onChange={this.handleChecked} type="checkbox" />
-                                        <label htmlFor="customCheck1">Remember password</label>
+                                        <input name="remember-me" id="remember-me" onChange={this.handleChecked} type="checkbox" />
+                                        <label style={{ cursor: 'default', marginLeft: '5px', userSelect: 'none' }} htmlFor="remember-me">Remember password</label>
                                     </div>
                                     <button disabled={this.state.loading} type="button" onClick={this.handleClick} className="btn btn-lg btn-primary btn-block text-uppercase">
                                         {this.state.loading && <CircularProgress style={{ color: "white" }} size={15} />}

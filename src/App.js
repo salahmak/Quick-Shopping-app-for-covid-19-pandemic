@@ -8,6 +8,7 @@ import Register from './components/register/register.jsx'
 import AddMsg from './components/addmsg/addMsg.jsx'
 import Loading from './components/loading/loading.jsx'
 
+
 import { v1 as uuidv1 } from 'uuid';
 
 
@@ -16,7 +17,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const initialState = {
   marking: false,
   addForm: false,
-  markers: [],
   currentMarker: {},
   formStage: "basic",
   signedIn: false,
@@ -24,6 +24,7 @@ const initialState = {
   loading: false,
   buttonLoading: false,
   addMsg: false,
+  tipBox: false,
 
 
   //current Store
@@ -70,10 +71,8 @@ class App extends Component {
           fetch('https://covid-19-shopping.herokuapp.com/getstores')
             .then(response => response.json())
             .then(stores => {
-              //this.setState({ stores })
               this.setState({ user, stores, loading: false, signedIn: true, route: 'home' })
             })
-
         })
         .catch(err => {
           localStorage.removeItem('user')
@@ -85,33 +84,18 @@ class App extends Component {
   }
 
 
-  /* if (this.state.route === 'home') {
-    fetch('https://covid-19-shopping.herokuapp.com/getstores')
-      .then(response => response.json())
-      .then(stores => {
-        this.setState({ stores })
-      })
-  } */
-
-
   onAddBusiness = () => {
     if (!this.state.addForm) {
-      this.setState({ marking: true, addMsg: true })
+      this.setState({ marking: true, addMsg: true, tipBox: false })
     }
-
   }
-
 
   mapClick = (x, y, lat, lng, event) => {
     console.log(lat.latLng.toString());
-
     if (this.state.marking) {
-      let markers = [...this.state.markers]
-
       let currentMarker = { lat: lat.latLng.lat().toString(), lng: lat.latLng.lng().toString() }
       this.setState(Object.assign(this.state.currentStore, { coords: currentMarker, id: uuidv1(), ownerId: this.state.user.id }))
-
-      this.setState({ markers, currentMarker, addForm: true, marking: false, addMsg: false })
+      this.setState({ currentMarker, addForm: true, marking: false, addMsg: false })
     }
   }
 
@@ -139,12 +123,6 @@ class App extends Component {
     this.setState(Object.assign(this.state.currentStore, { type: e.target.value }))
   }
 
-
-
-
-
-
-
   routeChange = (route) => {
     if (route === 'home') {
       this.setState({ route, signedIn: true })
@@ -154,17 +132,13 @@ class App extends Component {
 
   }
 
-
   handleFormClick = (stage) => {
     if (stage !== 'finish') {
       this.setState({ formStage: stage })
     }
     else {
-
       const newStore = this.state.currentStore;
       const cloneStores = [...this.state.stores];
-
-
       this.setState({ buttonLoading: true })
       fetch('https://covid-19-shopping.herokuapp.com/newstore', {
         method: 'post',
@@ -185,7 +159,6 @@ class App extends Component {
     }
   }
 
-
   handleItemChange = (prop, event, index) => {
     const old = this.state.currentStore.items[index];
     const updated = { ...old, [prop]: event.target.value }
@@ -202,7 +175,6 @@ class App extends Component {
     this.setState(Object.assign(this.state.currentStore, { items: this.state.currentStore.items.filter((item, index) => index !== i) }));
   }
 
-
   //register and login
 
   loadUser = (user) => {
@@ -210,12 +182,14 @@ class App extends Component {
     fetch('https://covid-19-shopping.herokuapp.com/getstores')
       .then(response => response.json())
       .then(stores => {
-        this.setState({ stores })
+        this.setState({ stores, tipBox: true })
       })
   }
 
-
-
+  onSignOut = () => {
+    this.setState({ signedIn: false, route: "login", user: { name: "", email: "", id: "" } })
+    localStorage.removeItem('user')
+  }
 
 
   //store edit
@@ -236,20 +210,13 @@ class App extends Component {
     })
   }
 
-  onStoreDelete = (stores) => {
+  HandleStoreChange = (stores) => {
     this.setState({ stores })
   }
 
   setBtnLoading = (bool) => {
     this.setState({ buttonLoading: bool })
   }
-
-
-  onSignOut = () => {
-    this.setState({ signedIn: false, route: "login", user: { name: "", email: "", id: "" } })
-    localStorage.removeItem('user')
-  }
-
 
 
   render() {
@@ -276,25 +243,16 @@ class App extends Component {
           {this.state.loading && <Loading />}
           <Header onSignOut={this.onSignOut} username={this.state.user.name} routeChange={this.routeChange} signedIn={this.state.signedIn} />
           {this.state.addMsg && <AddMsg />}
-          <GoogleMap setBtnLoading={this.setBtnLoading} deleteStore={this.onStoreDelete} btnLoading={this.state.buttonLoading} onStoreEdit={this.onStoreEdit} user={this.state.user} currentMarker={this.state.currentStore.coords} stores={this.state.stores} mapClick={this.mapClick} marking={this.state.marking} />
-          <AddBtn onClick={this.onAddBusiness} />
+          <GoogleMap setBtnLoading={this.setBtnLoading} HandleStoreChange={this.HandleStoreChange} btnLoading={this.state.buttonLoading} user={this.state.user} currentMarker={this.state.currentStore.coords} stores={this.state.stores} mapClick={this.mapClick} marking={this.state.marking} />
+
+          <AddBtn open={this.state.tipBox} onClick={this.onAddBusiness} />
           {
-            this.state.addForm
-              ? <AddForm btnLoading={this.state.buttonLoading} handleTypeChange={this.handleTypeChange} handleNameChange={this.handleNameChange} store={this.state.currentStore} handleItemChange={this.handleItemChange} addItem={this.addItem} deleteItem={this.deleteItem} formStage={this.state.formStage} handleFormClick={this.handleFormClick} onCancel={this.onCancel} lat={this.state.currentStore.coords.lat} lng={this.state.currentStore.coords.lng} />
-
-              : <></>
+            this.state.addForm && <AddForm btnLoading={this.state.buttonLoading} handleTypeChange={this.handleTypeChange} handleNameChange={this.handleNameChange} store={this.state.currentStore} handleItemChange={this.handleItemChange} addItem={this.addItem} deleteItem={this.deleteItem} formStage={this.state.formStage} handleFormClick={this.handleFormClick} onCancel={this.onCancel} lat={this.state.currentStore.coords.lat} lng={this.state.currentStore.coords.lng} />
           }
-
         </>
       )
     }
-
-
   }
 }
 
 export default App;
-
-
-
-

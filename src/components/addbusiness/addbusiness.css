@@ -4,6 +4,10 @@
   left: 5px;
 }
 
+.MuiTooltip-arrow {
+  color: white !important;
+}
+
 .form-wrapper {
   width: 100%;
   display: flex;
@@ -35,12 +39,12 @@ select {
   align-items: center;
 }
 
-.item-input-wrapper > div {
+.item-input-wrapper>div {
   margin: 5px;
   margin-top: 0;
 }
 
-.item-input-wrapper > button {
+.item-input-wrapper>button {
   width: auto;
 }
 
@@ -201,7 +205,7 @@ select {
 
 .measure {
   width: 22em;
-  max-height: 350px;
+  max-height: 358px;
   overflow-y: auto;
   overflow-x: hidden;
   padding: 20px;
