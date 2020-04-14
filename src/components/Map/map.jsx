@@ -19,7 +19,7 @@ const GoogleMap = (props) => {
     const [showItems, setShowItems] = useState(false);
 
 
-    const onMarkerClick = (props, marker, e) => {
+    const onMarkerClick = (props) => {
         setSelectedStore(props.store)
         setShowItems(true)
     }
@@ -122,7 +122,7 @@ const GoogleMap = (props) => {
 
             {props.stores.map((store, i) => {
                 return (
-                    <Marker icon={{ url: marker, scaledSize: new props.google.maps.Size(34, 34) }} key={i} user={props.user} store={store} position={store.coords} onClick={(props, marker) => onMarkerClick(props, marker)} />
+                    <Marker icon={{ url: marker, scaledSize: new props.google.maps.Size(34, 34) }} key={i} user={props.user} store={store} position={store.coords} onClick={(props) => onMarkerClick(props)} />
 
 
                 )

@@ -52,7 +52,7 @@ class Register extends Component {
                         <div className="card card-signin my-5">
                             <div className="card-body">
                                 <h5 className="card-title text-center">Register</h5>
-                                {this.state.alert && <div class="alert alert-danger" role="alert">{this.state.alertMsg}</div>}
+                                {this.state.alert && <div className="alert alert-danger" role="alert">{this.state.alertMsg}</div>}
                                 <form className="form-signin">
                                     <div className="form-label-group">
                                         <input onChange={this.handleChange} name="name" type="text" id="inputName" className="form-control" placeholder="Name" required autoFocus />
