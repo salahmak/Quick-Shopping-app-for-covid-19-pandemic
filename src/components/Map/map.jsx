@@ -114,17 +114,15 @@ const GoogleMap = (props) => {
             google={props.google}
             onClick={props.mapClick}
             zoom={8}
+            minZoom={3}
             style={mapStyles}
             initialCenter={{ lat: 35.77451720813653, lng: 3.15603125 }}
-
         >
             <Marker position={props.currentMarker} />
 
             {props.stores.map((store, i) => {
                 return (
                     <Marker icon={{ url: marker, scaledSize: new props.google.maps.Size(34, 34) }} key={i} user={props.user} store={store} position={store.coords} onClick={(props) => onMarkerClick(props)} />
-
-
                 )
             })}
 

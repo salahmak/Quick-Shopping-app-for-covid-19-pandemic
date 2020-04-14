@@ -228,7 +228,7 @@ class App extends Component {
       return (
         <>
           {this.state.loading && <Loading />}
-          <div className="gradient-bg"></div>
+          {!this.state.loading && <div className="gradient-bg"></div>}
           <Header routeChange={this.routeChange} signedIn={this.state.signedIn} />
           <Login loadUser={this.loadUser} routeChange={this.routeChange} />
         </>
@@ -237,7 +237,7 @@ class App extends Component {
       return (
         <>
           {this.state.loading && <Loading />}
-          <div className="gradient-bg"></div>
+          {!this.state.loading && <div className="gradient-bg"></div>}
           <Header routeChange={this.routeChange} signedIn={this.state.signedIn} />
           <Register loadUser={this.loadUser} routeChange={this.routeChange} />
         </>
