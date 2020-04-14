@@ -4,18 +4,7 @@
 
 body {
   overflow: hidden;
-  background: linear-gradient(-45deg,
-      #ee7752,
-      #e73c7e,
-      #23a6d5,
-      #23d5ab,
-      #aa4b6b,
-      #6b6b83,
-      #3b8d99,
-      #ff0099,
-      #493240);
-  background-size: 900% 900%;
-  animation: gradient 30s ease infinite;
+  background-color: transparent;
 }
 
 @keyframes gradient {
@@ -58,4 +47,25 @@ body {
   100% {
     background-position: 0% 50%;
   }
+}
+
+.gradient-bg {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: -1;
+  background: linear-gradient(-45deg,
+      #ee7752,
+      #e73c7e,
+      #23a6d5,
+      #23d5ab,
+      #aa4b6b,
+      #6b6b83,
+      #3b8d99,
+      #ff0099,
+      #493240);
+  background-size: 900% 900%;
+  animation: gradient 30s ease infinite;
 }
