@@ -112,7 +112,7 @@ class App extends Component {
         name: "",
         type: "",
         coords: {},
-        items: []
+        items: [{ name: "", quantity: "", unit: "" }]
       }
     })
   }
