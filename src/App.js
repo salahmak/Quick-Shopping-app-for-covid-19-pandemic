@@ -106,14 +106,7 @@ class App extends Component {
   onCancel = () => {
     this.setState({ addForm: false, currentMarker: {}, formStage: "basic" })
     this.setState({
-      currentStore: {
-        id: "",
-        ownerId: this.state.user.id,
-        name: "",
-        type: "",
-        coords: {},
-        items: []
-      }
+      currentStore: initialState.currentStore
     })
   }
 
@@ -132,7 +125,6 @@ class App extends Component {
     } else {
       this.setState({ route, signedIn: false })
     }
-
   }
 
   handleFormClick = (stage) => {
