@@ -37,7 +37,7 @@ const initialState = {
     name: "",
     type: "",
     coords: {},
-    items: []
+    items: [{ name: "", quantity: "", unit: "" }]
   },
 
 
@@ -112,7 +112,7 @@ class App extends Component {
         name: "",
         type: "",
         coords: {},
-        items: [{ name: "", quantity: "", unit: "" }]
+        items: []
       }
     })
   }
