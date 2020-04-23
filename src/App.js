@@ -17,47 +17,51 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
-const initialState = {
-  marking: false,
-  addForm: false,
-  currentMarker: {},
-  formStage: "basic",
-  signedIn: false,
-  route: 'register',
-  loading: false,
-  buttonLoading: false,
-  addMsg: false,
-  tipBox: false,
-
-
-  //current Store
-  currentStore: {
-    id: "",
-    ownerId: "",
-    name: "",
-    type: "",
-    coords: {},
-    items: [{ name: "", quantity: "", unit: "" }]
-  },
-
-
-  //all stores
-  stores: [],
-
-  //user
-
-  user: {
-    id: "",
-    name: "",
-    email: ""
-  }
-}
-
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = initialState
+    this.state = {
+      marking: false,
+      addForm: false,
+      formStage: "basic",
+      signedIn: false,
+      route: 'register',
+      loading: false,
+      buttonLoading: false,
+      addMsg: false,
+      tipBox: false,
+
+
+      //current Store
+      currentStore: {
+        id: "",
+        ownerId: "",
+        name: "",
+        type: "",
+        coords: {},
+        items: [{ name: "", quantity: "", unit: "" }]
+      },
+
+
+      //all stores
+      stores: [],
+
+      //user
+
+      user: {
+        id: "",
+        name: "",
+        email: "",
+        type: "",
+        joined: "",
+        pic: ""
+      },
+
+      //filter
+
+      filter: ""
+    }
   }
 
 
@@ -79,10 +83,10 @@ class App extends Component {
         })
         .catch(err => {
           localStorage.removeItem('user')
-          this.setState({ loading: false, user: initialState.user, route: 'login' })
+          this.setState({ loading: false, user: { id: "", name: "", email: "", type: "", joined: "", pic: "" }, route: 'login' })
         })
     } else {
-      this.setState({ loading: false, user: initialState.user, route: 'register' })
+      this.setState({ loading: false, user: { id: "", name: "", email: "", type: "", joined: "", pic: "" }, route: 'register' })
     }
   }
 
@@ -98,15 +102,21 @@ class App extends Component {
     if (this.state.marking) {
       let currentMarker = { lat: lat.latLng.lat().toString(), lng: lat.latLng.lng().toString() }
       this.setState(Object.assign(this.state.currentStore, { coords: currentMarker, id: uuidv1(), ownerId: this.state.user.id }))
-      this.setState({ currentMarker, addForm: true, marking: false, addMsg: false })
+      this.setState({ addForm: true, marking: false, addMsg: false })
     }
   }
 
 
   onCancel = () => {
-    this.setState({ addForm: false, currentMarker: {}, formStage: "basic" })
     this.setState({
-      currentStore: initialState.currentStore
+      addForm: false, formStage: "basic", currentStore: {
+        id: "",
+        ownerId: "",
+        name: "",
+        type: "",
+        coords: {},
+        items: [{ name: "", quantity: "", unit: "" }]
+      }
     })
   }
 
@@ -151,6 +161,9 @@ class App extends Component {
           const newStores = [...cloneStores, store]
           this.setState({ stores: newStores, addForm: false, formStage: "basic", currentStore: { name: "", type: "", coords: {}, items: [] } })
         })
+        .catch(() => {
+          console.error('An error has occured while trying to add your store');
+        })
     }
   }
 
@@ -172,13 +185,18 @@ class App extends Component {
 
   //register and login
 
-  loadUser = (user) => {
-    this.setState({ user })
-    fetch('https://covid-19-shopping.herokuapp.com/getstores')
-      .then(response => response.json())
-      .then(stores => {
-        this.setState({ stores, tipBox: true })
-      })
+  loadUser = (user, type) => {
+    if (type === "auth") {
+      this.setState({ user })
+      fetch('https://covid-19-shopping.herokuapp.com/getstores')
+        .then(response => response.json())
+        .then(stores => {
+          this.setState({ stores, tipBox: true })
+        })
+    } else {
+      this.setState({ user })
+    }
+
   }
 
   onSignOut = () => {
@@ -205,7 +223,7 @@ class App extends Component {
     })
   }
 
-  HandleStoreChange = (stores) => {
+  handleStoreChange = (stores) => {
     this.setState({ stores })
   }
 
@@ -214,7 +232,22 @@ class App extends Component {
   }
 
 
+  //search
+
+  handleSearch = (e) => {
+    this.setState({ filter: e.target.value })
+  }
+
+  //tipbox
+
+  tipBoxClose = () => {
+    this.setState({ tipBox: false })
+  }
+
   render() {
+    let filteredStores = this.state.stores.filter(store => {
+      return store.name.toLowerCase().includes(this.state.filter.toLowerCase());
+    })
 
     if (this.state.route === 'login') {
       return (
@@ -238,11 +271,15 @@ class App extends Component {
       return (
         <>
           {this.state.loading && <Loading />}
-          <Header onSignOut={this.onSignOut} username={this.state.user.name} routeChange={this.routeChange} signedIn={this.state.signedIn} />
-          {this.state.addMsg && <AddMsg />}
-          <GoogleMap setBtnLoading={this.setBtnLoading} HandleStoreChange={this.HandleStoreChange} btnLoading={this.state.buttonLoading} user={this.state.user} currentMarker={this.state.currentStore.coords} stores={this.state.stores} mapClick={this.mapClick} marking={this.state.marking} />
 
-          <AddBtn open={this.state.tipBox} onClick={this.onAddBusiness} />
+          <Header tipbox={this.state.tipBox} tipBoxClose={this.tipBoxClose} loadUser={this.loadUser} handleSearch={this.handleSearch} onSignOut={this.onSignOut} user={this.state.user} pic={this.state.user.pic} routeChange={this.routeChange} signedIn={this.state.signedIn} />
+
+          {this.state.addMsg && <AddMsg />}
+
+          <GoogleMap setBtnLoading={this.setBtnLoading} handleStoreChange={this.handleStoreChange} btnLoading={this.state.buttonLoading} user={this.state.user} currentStore={this.state.currentStore} stores={filteredStores} mapClick={this.mapClick} marking={this.state.marking} />
+
+          {this.state.user.type === 'business' && <AddBtn open={this.state.tipBox} onClick={this.onAddBusiness} />}
+
           {
             this.state.addForm && <AddForm btnLoading={this.state.buttonLoading} handleTypeChange={this.handleTypeChange} handleNameChange={this.handleNameChange} store={this.state.currentStore} handleItemChange={this.handleItemChange} addItem={this.addItem} deleteItem={this.deleteItem} formStage={this.state.formStage} handleFormClick={this.handleFormClick} onCancel={this.onCancel} lat={this.state.currentStore.coords.lat} lng={this.state.currentStore.coords.lng} />
           }

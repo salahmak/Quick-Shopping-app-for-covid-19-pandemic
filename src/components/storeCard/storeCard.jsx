@@ -89,10 +89,8 @@ const StoreCard = (props) => {
                     </div>
                     <div className={`mt3 ${classes.root}`}>
                         <FormControl className={classes.formControl}>
-                            <InputLabel id="demo-simple-select-label">Store type</InputLabel>
+                            <InputLabel>Store type</InputLabel>
                             <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
                                 name="type"
                                 onChange={props.handleChange}
                                 value={props.store.type}
@@ -118,7 +116,7 @@ const StoreCard = (props) => {
 
                     </div>
                     <form className={`measure center`} noValidate autoComplete="off">
-                        <fieldset id="basic-add-form" className="ba b--transparent ph0 mh0">
+                        <fieldset id="items-add-form" className="ba b--transparent ph0 mh0">
                             {
                                 props.store.items.map((item, i) => {
                                     return (

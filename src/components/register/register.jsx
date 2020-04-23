@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import '../login/login.css'
 
 class Register extends Component {
@@ -9,6 +13,7 @@ class Register extends Component {
             name: "",
             email: "",
             password: "",
+            type: "visitor",
             loading: false,
             alert: false,
             alertMsg: ""
@@ -29,13 +34,14 @@ class Register extends Component {
             body: JSON.stringify({
                 email: this.state.email,
                 password: this.state.password,
-                name: this.state.name
+                name: this.state.name,
+                type: this.state.type
             })
         })
             .then(response => response.json())
             .then(res => {
                 if (res.id) {
-                    this.props.loadUser(res);
+                    this.props.loadUser(res, 'auth');
                     this.props.routeChange('home');
                     localStorage.setItem('user', JSON.stringify(res))
                 } else {
@@ -55,7 +61,7 @@ class Register extends Component {
                                 {this.state.alert && <div className="alert alert-danger" role="alert">{this.state.alertMsg}</div>}
                                 <form className="form-signin">
                                     <div className="form-label-group">
-                                        <input onChange={this.handleChange} name="name" type="text" id="inputName" className="form-control" placeholder="Name" required autoFocus />
+                                        <input onChange={this.handleChange} name="name" type="text" id="inputName" className="form-control" placeholder="Name" required />
                                         <label htmlFor="inputName">Name</label>
                                     </div>
                                     <div className="form-label-group">
@@ -66,6 +72,20 @@ class Register extends Component {
                                         <input onChange={this.handleChange} name="password" type="password" id="inputPassword" className="form-control" placeholder="Password" required />
                                         <label htmlFor="inputPassword">Password</label>
                                     </div>
+                                    <div className="form-label-group select">
+                                        <FormControl>
+                                            <InputLabel>Register as</InputLabel>
+                                            <Select
+                                                onChange={this.handleChange}
+                                                name="type"
+                                                value={this.state.type}
+                                            >
+                                                <MenuItem value={"visitor"}>Visitor (buyer)</MenuItem>
+                                                <MenuItem value={"business"}>Store owner (seller)</MenuItem>
+                                            </Select>
+                                        </FormControl>
+                                    </div>
+
                                     <button type="button" onClick={this.handleClick} className="btn btn-lg btn-primary btn-block text-uppercase">
                                         {this.state.loading && <CircularProgress style={{ color: "white" }} size={15} />}
                                         {!this.state.loading && "Register"}</button>

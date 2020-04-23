@@ -93,10 +93,8 @@ const AddForm = (props) => {
                             </div>
                             <div className={`mt3 ${classes.root}`}>
                                 <FormControl className={classes.formControl}>
-                                    <InputLabel id="demo-simple-select-label">Store type</InputLabel>
+                                    <InputLabel>Store type</InputLabel>
                                     <Select
-                                        labelId="demo-simple-select-label"
-                                        id="demo-simple-select"
                                         onChange={props.handleTypeChange}
                                         value={props.store.type}
                                     >
@@ -123,7 +121,6 @@ const AddForm = (props) => {
                             </div>
                             <div className={`mt3 ${classes.root}`}>
                                 <TextField
-                                    id="outlined-read-only-input"
                                     label="Geometric location"
                                     defaultValue={`lat: ${props.lat}, lng: ${props.lng}`}
                                     InputProps={{

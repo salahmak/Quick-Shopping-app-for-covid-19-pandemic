@@ -69,7 +69,7 @@ const GoogleMap = (props) => {
             })
             .then(stores => {
                 if (Array.isArray(stores)) {
-                    props.HandleStoreChange(stores)
+                    props.handleStoreChange(stores)
                     props.setBtnLoading(false)
                     setShowItems(false)
                 } else {
@@ -91,7 +91,7 @@ const GoogleMap = (props) => {
             }
         }).then(stores => {
             if (Array.isArray(stores)) {
-                props.HandleStoreChange(stores)
+                props.handleStoreChange(stores)
                 props.setBtnLoading(false)
                 setShowItems(false)
             } else {
@@ -118,7 +118,7 @@ const GoogleMap = (props) => {
             style={mapStyles}
             initialCenter={{ lat: 35.77451720813653, lng: 3.15603125 }}
         >
-            <Marker position={props.currentMarker} />
+            {JSON.stringify(props.currentStore) !== '{}' && <Marker position={props.currentStore.coords} />}
 
             {props.stores.map((store, i) => {
                 return (

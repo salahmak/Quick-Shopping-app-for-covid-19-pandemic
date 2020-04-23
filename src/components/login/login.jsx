@@ -38,7 +38,7 @@ class Login extends Component {
             .then(res => {
                 if (res.id) {
                     this.props.routeChange('home');
-                    this.props.loadUser(res);
+                    this.props.loadUser(res, 'auth');
                     if (this.state.remember) {
                         localStorage.setItem('user', JSON.stringify(res))
                     }
@@ -63,7 +63,7 @@ class Login extends Component {
                                 {this.state.alert && <div className="alert alert-danger" role="alert">{this.state.alertMsg}</div>}
                                 <form className="form-signin">
                                     <div className="form-label-group">
-                                        <input onChange={this.handleChange} name="email" type="email" id="inputEmail" className="form-control" placeholder="Email address" autoFocus />
+                                        <input onChange={this.handleChange} name="email" type="email" id="inputEmail" className="form-control" placeholder="Email address" />
                                         <label htmlFor="inputEmail">Email address</label>
                                     </div>
                                     <div className="form-label-group">

@@ -47,6 +47,15 @@ label {
     margin-bottom: 1rem;
 }
 
+.select {
+    display: flex;
+    justify-content: center;
+}
+
+.select * {
+    width: 100%;
+}
+
 .form-label-group input {
     height: auto;
     border-radius: 2rem;
