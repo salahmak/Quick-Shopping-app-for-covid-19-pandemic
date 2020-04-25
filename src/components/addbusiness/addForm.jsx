@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
@@ -9,6 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Divider from '@material-ui/core/Divider';
 
 
 import './addbusiness.css'
@@ -44,59 +45,70 @@ const AddForm = (props) => {
 
     const classes = useStyles();
 
+    const [alert, setAlert] = useState({ display: false, msg: "" })
+    const [formStage, setFormStage] = useState('basic')
+    const [doneLoading, setDoneLoading] = useState(false)
 
-    /* {
-        itemName: "",
-        quantity: "",
-        unit: ""
-    } */
-
-
-
-    /* const nameChange = (e, i) => {
-        const newItems = items;
-        newItems[i].name = e.target.value;
-        setItems(newItems)
-        console.log(items)
-    } */
-
-
-    /* const handleItemChange = (prop, event, index) => {
-        const old = items[index];
-        const updated = { ...old, [prop]: event.target.value }
-        const clone = [...items];
-        clone[index] = updated;
-        setItems(clone);
+    const handleFormClick = (stage) => {
+        setFormStage(stage)
     }
 
-    const addItem = () => {
-        const newItem = { name: "", quantity: "", unit: "" };
-        setItems(items => items.concat(newItem))
+
+
+    const isStoreValid = props.store.name && props.store.type && props.store.items.every(i => Object.values(i).every(v => v));
+
+    const handleStoreCreate = () => {
+        setAlert({ display: false, msg: "" })
+        if (isStoreValid) {
+            const newStore = props.store;
+            setDoneLoading(true)
+            fetch('https://covid-19-shopping.herokuapp.com/newstore', {
+                method: 'post',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(newStore)
+            })
+                .then(response => response.json())
+                .then(res => {
+                    if (res.id) {
+                        setDoneLoading(false)
+                        props.handleAddStore(res)
+                    } else {
+                        setAlert({ display: true, msg: res })
+                        setDoneLoading(false)
+                    }
+                })
+                .catch(() => {
+                    setAlert({ display: true, msg: "An error has occured while trying to fetch" })
+                    setDoneLoading(false)
+                })
+
+        } else {
+            setAlert({ display: true, msg: "Please fill all the inputs before clicking Done" })
+        }
     }
 
-    const deleteItem = (i, e) => {
-        setItems(currentItems => currentItems.filter((item, index) => index !== i));
-        e.target.value = ''
-    }
- */
 
 
-    if (props.formStage === 'basic') {
+    if (formStage === 'basic') {
         return (
             <div className="form-wrapper">
                 <main className="form pa4 black-80">
                     <form className="measure center" noValidate autoComplete="off" >
                         <fieldset id="basic-add-form" className="ba b--transparent ph0 mh0">
                             <legend className="f4 fw6 ph0 mh0">Add your own business to manage</legend>
+                            <Divider />
+                            {alert.display && <div style={{ margin: 0, textAlign: 'center' }} className="alert alert-danger" role="alert">{alert.msg}</div>}
+                            <Divider />
                             <div className={`mt3 ${classes.root}`}>
-                                <TextField onChange={props.handleNameChange} id="standard-basic" label="Store name" />
+                                <TextField name="name" onChange={props.handleInputChange} value={props.store.name} label="Store name" />
                             </div>
                             <div className={`mt3 ${classes.root}`}>
                                 <FormControl className={classes.formControl}>
                                     <InputLabel>Store type</InputLabel>
                                     <Select
-                                        onChange={props.handleTypeChange}
+                                        onChange={props.handleInputChange}
                                         value={props.store.type}
+                                        name="type"
                                     >
                                         <MenuItem value={"food"}>Bakery shop</MenuItem>
                                         <MenuItem value={"some other shit"}>Butcher</MenuItem>
@@ -141,7 +153,7 @@ const AddForm = (props) => {
 
                     <div className="form-btn-wrapper">
                         <Button style={{ margin: '0px 10px' }} onClick={props.onCancel} color="primary">Cancel</Button>
-                        <Button onClick={() => props.handleFormClick('items')} variant="contained" color="primary">Next</Button>
+                        <Button onClick={() => handleFormClick('items')} variant="contained" color="primary">Next</Button>
                     </div>
 
                 </main>
@@ -149,12 +161,14 @@ const AddForm = (props) => {
             </div>
 
         )
-    } else if (props.formStage === 'items') {
+    } else if (formStage === 'items') {
         return (
             <div className="form-wrapper">
                 <main className="form pa4 black-80">
                     <legend className="f4 fw6 ph0 mh0">Add Products to your business</legend>
-
+                    <Divider />
+                    {alert.display && <div style={{ margin: 0, textAlign: 'center' }} className="alert alert-danger" role="alert">{alert.msg}</div>}
+                    <Divider />
                     <form className={`measure center`} noValidate autoComplete="off">
                         <fieldset id="basic-add-form" className="ba b--transparent ph0 mh0">
 
@@ -190,10 +204,16 @@ const AddForm = (props) => {
                     </div>
                     <div className="form-btn-wrapper">
                         <Button style={{ margin: '0px 10px' }} onClick={props.onCancel} color="primary">Cancel</Button>
-                        <Button disabled={props.btnLoading} onClick={() => props.handleFormClick('finish')} variant="contained" color="primary">
+                        <Button style={{ margin: '0px 10px' }} onClick={() => handleFormClick('basic')} color="secondary">Back</Button>
+
+                        <Button disabled={doneLoading} onClick={() => handleStoreCreate()} variant="contained" color="primary">
+                            {doneLoading && <CircularProgress size={24} />}
+                            {!doneLoading && "Done"}
+                        </Button>
+                        {/*  <Button disabled={props.btnLoading} onClick={() => props.handleFormClick('finish')} variant="contained" color="primary">
                             {props.btnLoading && <CircularProgress size={24} />}
                             {!props.btnLoading && "Done"}
-                        </Button>
+                        </Button> */}
                     </div>
                 </main>
             </div>

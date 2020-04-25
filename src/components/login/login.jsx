@@ -46,6 +46,9 @@ class Login extends Component {
                     this.setState({ alert: true, alertMsg: res, loading: false })
                 }
             })
+            .catch(() => {
+                this.setState({ alert: true, alertMsg: 'could not fetch to the server', loading: false })
+            })
     }
 
     handleChecked = (e) => {

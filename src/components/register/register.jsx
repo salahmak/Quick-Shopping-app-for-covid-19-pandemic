@@ -48,6 +48,9 @@ class Register extends Component {
                     this.setState({ alert: true, alertMsg: res, loading: false })
                 }
             })
+            .catch(() => {
+                this.setState({ alert: true, alertMsg: 'could not fetch to the server', loading: false })
+            })
     }
 
     render() {
@@ -86,7 +89,7 @@ class Register extends Component {
                                         </FormControl>
                                     </div>
 
-                                    <button type="button" onClick={this.handleClick} className="btn btn-lg btn-primary btn-block text-uppercase">
+                                    <button disabled={this.state.loading} type="button" onClick={this.handleClick} className="btn btn-lg btn-primary btn-block text-uppercase">
                                         {this.state.loading && <CircularProgress style={{ color: "white" }} size={15} />}
                                         {!this.state.loading && "Register"}</button>
                                     <hr className="my-4" />

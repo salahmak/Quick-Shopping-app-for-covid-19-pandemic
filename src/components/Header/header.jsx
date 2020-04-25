@@ -129,8 +129,8 @@ const Header = (props) => {
     };
 
 
-    const saveDisabled = saveLoading || imgUrl === '';
-    const UpdateDisabled = updateLoading || password.currentPw === '' || password.newPw === '' || password.newPwConfirm === '' || password.newPw !== password.newPwConfirm;
+    const saveDisabled = saveLoading || imgUrl === '' || updateLoading;
+    const UpdateDisabled = saveLoading || updateLoading || password.currentPw === '' || password.newPw === '' || password.newPwConfirm === '' || password.newPw !== password.newPwConfirm;
 
 
 
@@ -143,6 +143,7 @@ const Header = (props) => {
         setOpen(false);
         setPassword({ currentPw: "", newPw: "", newPwConfirm: "" })
         setImgUrl('')
+        setAlert({ display: false, msg: "", variant: "" })
     };
 
 
@@ -167,11 +168,12 @@ const Header = (props) => {
     const handleUpdatePic = () => {
         setAlert({ display: false, msg: "", variant: "" })
         setSaveLoading(true)
-        const { name, email, id, joined } = props.user
+        const { name, email, id, type, joined } = props.user
         const UpdatingUser = {
             name,
             email,
             id,
+            type,
             joined,
             pic: imgUrl
         }
@@ -236,6 +238,9 @@ const Header = (props) => {
         }
     }
 
+
+
+
     return (
         <div className={classes.grow}>
             <AppBar position="static">
@@ -244,19 +249,21 @@ const Header = (props) => {
                         <> Quick covid-19 shopping </>
                     </Typography>
                     {props.signedIn && (
+
                         <div className={classes.search}>
                             <div className={classes.searchIcon}>
                                 <SearchIcon />
                             </div>
                             <InputBase
                                 onChange={(e) => props.handleSearch(e)}
-                                placeholder="Search…"
+                                placeholder="Search for items…"
                                 classes={{
                                     root: classes.inputRoot,
                                     input: classes.inputInput,
                                 }}
                                 inputProps={{ 'aria-label': 'search' }}
                             />
+
                         </div>
 
                     )}

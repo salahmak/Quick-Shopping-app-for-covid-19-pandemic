@@ -1,18 +1,3 @@
-.floating-btn {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 30px;
-    cursor: pointer;
-    background-color: tomato;
-    color: white;
-    width: 200px;
-    height: 60px;
-    bottom: 5px;
-    user-select: none;
-}
-
 .form-wrapper {
     width: 100%;
     display: flex;

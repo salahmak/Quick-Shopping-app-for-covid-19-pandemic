@@ -11,6 +11,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Divider from '@material-ui/core/Divider';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -58,6 +59,7 @@ const StoreCard = (props) => {
                 <main className="form pa4 black-80">
                     <legend className="f4 fw6 ph0 mh0 tc">{props.store.name}</legend>
                     <legend className="f6 fw6 ph0 mh0 tc">{props.store.type}</legend>
+                    <Divider />
                     <form className={`measure center`} noValidate autoComplete="off">
                         <fieldset id="basic-add-form" className="ba b--transparent ph0 mh0">
                             {
@@ -84,6 +86,7 @@ const StoreCard = (props) => {
         return (
             <div className="form-wrapper">
                 <main className="form pa4 black-80">
+                    {props.alert.display && <> <div style={{ margin: 0, textAlign: 'center' }} className="alert alert-danger" role="alert">{props.alert.msg}</div> <Divider /></>}
                     <div className={`mt3 ${classes.root}`}>
                         <TextField name="name" value={props.store.name} onChange={props.handleChange} id="standard-basic" label="Store name" />
                     </div>
@@ -144,15 +147,15 @@ const StoreCard = (props) => {
 
                         <Button onClick={props.onItemsClose} color="primary">Close</Button>
 
-                        <Button disabled={props.btnLoading} onClick={props.deleteStore} variant="outlined" color="secondary" className={classes.button} startIcon={<DeleteIcon />} >
-                            {props.btnLoading && <CircularProgress size={24} />}
-                            {!props.btnLoading && "delete"}
+                        <Button disabled={props.deleteLoading || props.updateLoading} onClick={props.deleteStore} variant="outlined" color="secondary" className={classes.button} startIcon={<DeleteIcon />} >
+                            {props.deleteLoading && <CircularProgress size={24} />}
+                            {!props.deleteLoading && "delete"}
                         </Button>
 
 
-                        <Button disabled={props.btnLoading} onClick={props.onStoreEdit} variant="contained" color="primary">
-                            {props.btnLoading && <CircularProgress size={24} />}
-                            {!props.btnLoading && "Update"}
+                        <Button disabled={props.updateLoading || props.deleteLoading} onClick={props.onStoreEdit} variant="contained" color="primary">
+                            {props.updateLoading && <CircularProgress size={24} />}
+                            {!props.updateLoading && "Update"}
                         </Button>
                     </div>
                 </main>

@@ -28,7 +28,6 @@ class App extends Component {
       signedIn: false,
       route: 'register',
       loading: false,
-      buttonLoading: false,
       addMsg: false,
       tipBox: false,
 
@@ -121,13 +120,11 @@ class App extends Component {
   }
 
 
-  handleNameChange = (e) => {
-    this.setState(Object.assign(this.state.currentStore, { name: e.target.value }))
+  handleInputChange = (e) => {
+    this.setState(Object.assign(this.state.currentStore, { [e.target.name]: e.target.value }))
   }
 
-  handleTypeChange = (e) => {
-    this.setState(Object.assign(this.state.currentStore, { type: e.target.value }))
-  }
+
 
   routeChange = (route) => {
     if (route === 'home') {
@@ -137,34 +134,15 @@ class App extends Component {
     }
   }
 
-  handleFormClick = (stage) => {
-    if (stage !== 'finish') {
-      this.setState({ formStage: stage })
-    }
-    else {
-      const newStore = this.state.currentStore;
-      const cloneStores = [...this.state.stores];
-      this.setState({ buttonLoading: true })
-      fetch('https://covid-19-shopping.herokuapp.com/newstore', {
-        method: 'post',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(newStore)
-      })
-        .then(response => {
-          if (response.ok) {
-            console.log('store added');
-            return response.json();
-          }
-        })
-        .then(store => {
-          this.setState({ buttonLoading: false })
-          const newStores = [...cloneStores, store]
-          this.setState({ stores: newStores, addForm: false, formStage: "basic", currentStore: { name: "", type: "", coords: {}, items: [] } })
-        })
-        .catch(() => {
-          console.error('An error has occured while trying to add your store');
-        })
-    }
+
+
+
+  //start here 
+
+  handleAddStore = (store) => {
+    const cloneStores = [...this.state.stores]
+    const newStores = [...cloneStores, store]
+    this.setState({ stores: newStores, addForm: false, formStage: "basic", currentStore: { name: "", type: "", coords: {}, items: [{ name: "", quantity: "", unit: "" }] } })
   }
 
   handleItemChange = (prop, event, index) => {
@@ -208,7 +186,6 @@ class App extends Component {
   //store edit
 
   onStoreEdit = (store) => {
-    this.setState({ buttonLoading: true })
     fetch('https://covid-19-shopping.herokuapp.com/editstore', {
       method: 'put',
       headers: { 'Content-Type': 'application/json' },
@@ -219,7 +196,6 @@ class App extends Component {
       }
     }).then(stores => {
       this.setState({ stores })
-      this.setState({ buttonLoading: false })
     })
   }
 
@@ -227,9 +203,7 @@ class App extends Component {
     this.setState({ stores })
   }
 
-  setBtnLoading = (bool) => {
-    this.setState({ buttonLoading: bool })
-  }
+
 
 
   //search
@@ -245,9 +219,7 @@ class App extends Component {
   }
 
   render() {
-    let filteredStores = this.state.stores.filter(store => {
-      return store.name.toLowerCase().includes(this.state.filter.toLowerCase());
-    })
+    let filteredStores = this.state.stores.filter(({ items }) => items.find(item => item.name.includes(this.state.filter)));
 
     if (this.state.route === 'login') {
       return (
@@ -276,12 +248,12 @@ class App extends Component {
 
           {this.state.addMsg && <AddMsg />}
 
-          <GoogleMap setBtnLoading={this.setBtnLoading} handleStoreChange={this.handleStoreChange} btnLoading={this.state.buttonLoading} user={this.state.user} currentStore={this.state.currentStore} stores={filteredStores} mapClick={this.mapClick} marking={this.state.marking} />
+          <GoogleMap handleStoreChange={this.handleStoreChange} user={this.state.user} currentStore={this.state.currentStore} stores={filteredStores} mapClick={this.mapClick} marking={this.state.marking} />
 
           {this.state.user.type === 'business' && <AddBtn open={this.state.tipBox} onClick={this.onAddBusiness} />}
 
           {
-            this.state.addForm && <AddForm btnLoading={this.state.buttonLoading} handleTypeChange={this.handleTypeChange} handleNameChange={this.handleNameChange} store={this.state.currentStore} handleItemChange={this.handleItemChange} addItem={this.addItem} deleteItem={this.deleteItem} formStage={this.state.formStage} handleFormClick={this.handleFormClick} onCancel={this.onCancel} lat={this.state.currentStore.coords.lat} lng={this.state.currentStore.coords.lng} />
+            this.state.addForm && <AddForm handleAddStore={this.handleAddStore} handleInputChange={this.handleInputChange} store={this.state.currentStore} handleItemChange={this.handleItemChange} addItem={this.addItem} deleteItem={this.deleteItem} handleFormClick={this.handleFormClick} onCancel={this.onCancel} lat={this.state.currentStore.coords.lat} lng={this.state.currentStore.coords.lng} />
           }
         </>
       )
