@@ -1,6 +1,6 @@
 {
   "name": "covid-19-shopping-app",
-  "version": "0.1.0",
+  "version": "0.8.0",
   "private": true,
   "engines": {
     "npm": "6.9.0",
