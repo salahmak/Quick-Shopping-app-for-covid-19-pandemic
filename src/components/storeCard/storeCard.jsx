@@ -118,7 +118,7 @@ const StoreCard = (props) => {
                         </FormControl>
 
                     </div>
-                    <form className={`measure center`} noValidate autoComplete="off">
+                    <form className={`measure-2 center`} noValidate autoComplete="off">
                         <fieldset id="items-add-form" className="ba b--transparent ph0 mh0">
                             {
                                 props.store.items.map((item, i) => {

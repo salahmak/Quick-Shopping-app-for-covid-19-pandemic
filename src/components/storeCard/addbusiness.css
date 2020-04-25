@@ -192,6 +192,14 @@ select {
     font-size: 0.875rem;
 }
 
+.measure-2 {
+    width: 22em;
+    max-height: 240px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 20px;
+}
+
 .measure {
     width: 22em;
     max-height: 350px;
