@@ -179,9 +179,9 @@ const AddForm = (props) => {
                                 props.store.items.map((item, i) => {
                                     return (
                                         <div key={i} className={`mt3 item-input-wrapper`}>
-                                            <TextField onChange={(e) => props.handleItemChange('name', e, i)} value={item.name} style={{ width: '40%' }} id="item-name" label="Item name" />
-                                            <TextField onChange={(e) => props.handleItemChange('quantity', e, i)} value={item.quantity} style={{ width: '30%' }} id="item-quantity" label="quantity" />
-                                            <TextField onChange={(e) => props.handleItemChange('unit', e, i)} value={item.unit} style={{ width: '20%' }} id="item-unit" label="Unit" />
+                                            <TextField onChange={(e) => props.handleItemChange('name', e, i)} value={item.name} style={{ width: '40%' }} label="Item name" />
+                                            <TextField onChange={(e) => props.handleItemChange('quantity', e, i)} value={item.quantity} style={{ width: '30%' }} label="quantity" />
+                                            <TextField onChange={(e) => props.handleItemChange('price', e, i)} value={item.price} style={{ width: '20%' }} label="Price" />
                                             <span className={classes.btn}>
                                                 <IconButton onClick={(e) => props.deleteItem(i, e)} aria-label="delete">
                                                     <SvgIcon style={{ color: 'red' }} >

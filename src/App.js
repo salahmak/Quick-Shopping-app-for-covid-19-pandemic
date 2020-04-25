@@ -39,7 +39,7 @@ class App extends Component {
         name: "",
         type: "",
         coords: {},
-        items: [{ name: "", quantity: "", unit: "" }]
+        items: [{ name: "", quantity: "", price: "" }]
       },
 
 
@@ -114,7 +114,7 @@ class App extends Component {
         name: "",
         type: "",
         coords: {},
-        items: [{ name: "", quantity: "", unit: "" }]
+        items: [{ name: "", quantity: "", price: "" }]
       }
     })
   }
@@ -142,7 +142,7 @@ class App extends Component {
   handleAddStore = (store) => {
     const cloneStores = [...this.state.stores]
     const newStores = [...cloneStores, store]
-    this.setState({ stores: newStores, addForm: false, formStage: "basic", currentStore: { name: "", type: "", coords: {}, items: [{ name: "", quantity: "", unit: "" }] } })
+    this.setState({ stores: newStores, addForm: false, formStage: "basic", currentStore: { name: "", type: "", coords: {}, items: [{ name: "", quantity: "", price: "" }] } })
   }
 
   handleItemChange = (prop, event, index) => {
@@ -154,7 +154,7 @@ class App extends Component {
   }
 
   addItem = () => {
-    const newItem = { name: "", quantity: "", unit: "" };
+    const newItem = { name: "", quantity: "", price: "" };
     this.setState(Object.assign(this.state.currentStore, { items: this.state.currentStore.items.concat(newItem) }))
   }
   deleteItem = (i, e) => {
