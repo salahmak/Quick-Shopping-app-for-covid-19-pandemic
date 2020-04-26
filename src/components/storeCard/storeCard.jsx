@@ -68,7 +68,7 @@ const StoreCard = (props) => {
                                         <div key={i} className={`mt3 item-input-wrapper`}>
                                             <TextField InputProps={{ readOnly: true, }} value={item.name} style={{ width: '40%' }} id="standard-basic" label="Item name" />
                                             <TextField InputProps={{ readOnly: true, }} value={item.quantity} style={{ width: '30%' }} id="standard-basic" label="quantity" />
-                                            <TextField InputProps={{ readOnly: true, }} value={item.unit} style={{ width: '20%' }} id="standard-basic" label="Unit" />
+                                            <TextField InputProps={{ readOnly: true, }} value={item.price} style={{ width: '20%' }} id="standard-basic" label="Unit" />
                                         </div>
                                     )
                                 })
