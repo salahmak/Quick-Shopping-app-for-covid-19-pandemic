@@ -51,7 +51,7 @@ const GoogleMap = (props) => {
 
 
     const addItem = () => {
-        const newItem = { name: "", quantity: "", unit: "" };
+        const newItem = { name: "", quantity: "", price: "" };
         setSelectedStore({ ...selectedStore, items: selectedStore.items.concat(newItem) })
     }
 
