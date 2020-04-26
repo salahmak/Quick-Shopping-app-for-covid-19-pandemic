@@ -178,7 +178,7 @@ class App extends Component {
   }
 
   onSignOut = () => {
-    this.setState({ signedIn: false, route: "login", user: { name: "", email: "", id: "" } })
+    this.setState({ filter:"", signedIn: false, route: "login", user: { name: "", email: "", id: "" } })
     localStorage.removeItem('user')
   }
 
