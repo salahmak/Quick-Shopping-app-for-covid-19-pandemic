@@ -110,8 +110,8 @@ const AddForm = (props) => {
                                         value={props.store.type}
                                         name="type"
                                     >
-                                        <MenuItem value={"food"}>Bakery shop</MenuItem>
-                                        <MenuItem value={"some other shit"}>Butcher</MenuItem>
+                                        <MenuItem value={"Bakery shop"}>Bakery shop</MenuItem>
+                                        <MenuItem value={"Butcher"}>Butcher</MenuItem>
                                         <MenuItem value={"Books"}>Books</MenuItem>
                                         <MenuItem value={"Fishmonger"}>Fishmonger</MenuItem>
                                         <MenuItem value={"Grocery"}>Grocery</MenuItem>
