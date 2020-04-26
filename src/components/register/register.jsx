@@ -83,8 +83,8 @@ class Register extends Component {
                                                 name="type"
                                                 value={this.state.type}
                                             >
-                                                <MenuItem value={"visitor"}>Visitor (buyer)</MenuItem>
-                                                <MenuItem value={"business"}>Store owner (seller)</MenuItem>
+                                                <MenuItem value={"visitor"}>Buyer (standard)</MenuItem>
+                                                <MenuItem value={"business"}>Seller (business)</MenuItem>
                                             </Select>
                                         </FormControl>
                                     </div>
