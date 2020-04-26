@@ -219,7 +219,7 @@ class App extends Component {
   }
 
   render() {
-    let filteredStores = this.state.stores.filter(({ items }) => items.find(item => item.name.includes(this.state.filter)));
+    let filteredStores = this.state.stores.filter(({ items }) => items.find(item => item.name.toLowerCase().includes(this.state.filter.toLowerCase())));
 
     if (this.state.route === 'login') {
       return (
