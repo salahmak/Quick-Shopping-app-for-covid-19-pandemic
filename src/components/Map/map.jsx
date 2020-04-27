@@ -87,7 +87,7 @@ const GoogleMap = (props) => {
     }
 
 
-    const isStoreValid = selectedStore.name && selectedStore.type && selectedStore.items.every(i => Object.values(i).every(v => v));
+    const isStoreValid = selectedStore.name && selectedStore.type && selectedStore.items.every(i => Object.values(i).every(v => v)) && selectedStore.items.length > 0;
 
     const onStoreEdit = () => {
         setAlert({ display: false, msg: "" })
@@ -119,34 +119,42 @@ const GoogleMap = (props) => {
     }
 
 
+
     const mapStyles = {
-        width: '100vw'
+        width: '100vw',
+        height: 'calc(100vh - 60px)',
     };
 
 
     return (
+        <>
+            <div className="map-out-div">
+                <Map
+                    className="map-wrapper"
+                    google={props.google}
+                    onClick={props.mapClick}
+                    zoom={8}
+                    minZoom={3}
+                    style={mapStyles}
+                    initialCenter={{ lat: 35.77451720813653, lng: 3.15603125 }}
+                >
+                    {JSON.stringify(props.currentStore) !== '{}' && <Marker position={props.currentStore.coords} />}
 
+                    {props.stores.map((store, i) => {
+                        return (
+                            <Marker icon={{ url: marker, scaledSize: new props.google.maps.Size(34, 34) }} key={i} user={props.user} store={store} position={store.coords} onClick={(props) => onMarkerClick(props)} />
+                        )
+                    })}
 
-        <Map
-            className="map-wrapper"
-            google={props.google}
-            onClick={props.mapClick}
-            zoom={8}
-            minZoom={3}
-            style={mapStyles}
-            initialCenter={{ lat: 35.77451720813653, lng: 3.15603125 }}
-        >
-            {JSON.stringify(props.currentStore) !== '{}' && <Marker position={props.currentStore.coords} />}
+                    {showItems && <StoreCard updateLoading={updateLoading} deleteLoading={deleteLoading} alert={alert} deleteStore={deleteStore} onStoreEdit={onStoreEdit} deleteItem={deleteItem} addItem={addItem} handleItemChange={handleItemChange} handleChange={handleInputChange} onItemsClose={onItemsClose} store={selectedStore} user={props.user} />
+                    }
+                </Map>
 
-            {props.stores.map((store, i) => {
-                return (
-                    <Marker icon={{ url: marker, scaledSize: new props.google.maps.Size(34, 34) }} key={i} user={props.user} store={store} position={store.coords} onClick={(props) => onMarkerClick(props)} />
-                )
-            })}
+            </div>
 
             {showItems && <StoreCard updateLoading={updateLoading} deleteLoading={deleteLoading} alert={alert} deleteStore={deleteStore} onStoreEdit={onStoreEdit} deleteItem={deleteItem} addItem={addItem} handleItemChange={handleItemChange} handleChange={handleInputChange} onItemsClose={onItemsClose} store={selectedStore} user={props.user} />
             }
-        </Map>
+        </>
     );
 }
 

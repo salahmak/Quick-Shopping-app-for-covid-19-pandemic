@@ -60,7 +60,7 @@ const StoreCard = (props) => {
                     <legend className="f4 fw6 ph0 mh0 tc">{props.store.name}</legend>
                     <legend className="f6 fw6 ph0 mh0 tc">{props.store.type}</legend>
                     <Divider />
-                    <form className={`measure center`} noValidate autoComplete="off">
+                    <form className={`measure-1 center`} noValidate autoComplete="off">
                         <fieldset id="basic-add-form" className="ba b--transparent ph0 mh0">
                             {
                                 props.store.items.map((item, i) => {
@@ -99,7 +99,7 @@ const StoreCard = (props) => {
                                 value={props.store.type}
                             >
                                 <MenuItem value={"Bakery shop"}>Bakery shop</MenuItem>
-                                <MenuItem value={"some other shit"}>Butcher</MenuItem>
+                                <MenuItem value={"Butcher"}>Butcher</MenuItem>
                                 <MenuItem value={"Books"}>Books</MenuItem>
                                 <MenuItem value={"Fishmonger"}>Fishmonger</MenuItem>
                                 <MenuItem value={"Grocery"}>Grocery</MenuItem>

@@ -9,7 +9,6 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import Divider from '@material-ui/core/Divider';
 
 
 import './addbusiness.css'
@@ -54,8 +53,7 @@ const AddForm = (props) => {
     }
 
 
-
-    const isStoreValid = props.store.name && props.store.type && props.store.items.every(i => Object.values(i).every(v => v));
+    const isStoreValid = props.store.name && props.store.type && props.store.items.every(i => Object.values(i).every(v => v)) && props.store.items.length > 0;
 
     const handleStoreCreate = () => {
         setAlert({ display: false, msg: "" })
@@ -93,12 +91,12 @@ const AddForm = (props) => {
         return (
             <div className="form-wrapper">
                 <main className="form pa4 black-80">
-                    <form className="measure center" noValidate autoComplete="off" >
+                    <form className="measure-basic center" noValidate autoComplete="off" >
                         <fieldset id="basic-add-form" className="ba b--transparent ph0 mh0">
                             <legend className="f4 fw6 ph0 mh0">Add your own business to manage</legend>
-                            <Divider />
+
                             {alert.display && <div style={{ margin: 0, textAlign: 'center' }} className="alert alert-danger" role="alert">{alert.msg}</div>}
-                            <Divider />
+
                             <div className={`mt3 ${classes.root}`}>
                                 <TextField name="name" onChange={props.handleInputChange} value={props.store.name} label="Store name" />
                             </div>
@@ -165,10 +163,10 @@ const AddForm = (props) => {
         return (
             <div className="form-wrapper">
                 <main className="form pa4 black-80">
-                    <legend className="f4 fw6 ph0 mh0">Add Products to your business</legend>
-                    <Divider />
-                    {alert.display && <div style={{ margin: 0, textAlign: 'center' }} className="alert alert-danger" role="alert">{alert.msg}</div>}
-                    <Divider />
+                    <legend className="f4 fw6 ph0 mh0 tc">Add Products to your business</legend>
+
+                    {alert.display && <div style={{ textAlign: 'center' }} className="alert alert-danger" role="alert">{alert.msg}</div>}
+
                     <form className={`measure center`} noValidate autoComplete="off">
                         <fieldset id="basic-add-form" className="ba b--transparent ph0 mh0">
 
@@ -199,7 +197,7 @@ const AddForm = (props) => {
                         </fieldset>
 
                     </form>
-                    <div style={{ width: '100%', height: '80px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
+                    <div style={{ width: '100%', marginTop: '20px', display: 'flex', justifyContent: 'center', alignItems: 'center' }} >
                         <Button style={{ backgroundColor: '#388e3c', color: 'white' }} onClick={props.addItem} variant="contained"> + Add more</Button>
                     </div>
                     <div className="form-btn-wrapper">

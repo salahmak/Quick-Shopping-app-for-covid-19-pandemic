@@ -1,3 +1,9 @@
 .map-wrapper {
-    height: calc(100% - 50px) !important;
+    height: 100%;
+    width: 100%;
+}
+
+.map-out-div {
+    position: fixed;
+    top: 60px;
 }

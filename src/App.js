@@ -178,7 +178,7 @@ class App extends Component {
   }
 
   onSignOut = () => {
-    this.setState({ filter:"", signedIn: false, route: "login", user: { name: "", email: "", id: "" } })
+    this.setState({ filter: "", signedIn: false, route: "login", user: { name: "", email: "", id: "" } })
     localStorage.removeItem('user')
   }
 
@@ -249,6 +249,8 @@ class App extends Component {
           {this.state.addMsg && <AddMsg />}
 
           <GoogleMap handleStoreChange={this.handleStoreChange} user={this.state.user} currentStore={this.state.currentStore} stores={filteredStores} mapClick={this.mapClick} marking={this.state.marking} />
+
+
 
           {this.state.user.type === 'business' && <AddBtn open={this.state.tipBox} onClick={this.onAddBusiness} />}
 

@@ -1,4 +1,4 @@
-#root>div>div.map-wrapper>div>div:nth-child(2) {
+#root>div>div.map-out-div>div.map-wrapper>div>div:nth-child(2) {
   z-index: -5 !important;
 }
 

@@ -205,11 +205,31 @@ select {
 
 .measure {
   width: 22em;
-  max-height: 350px;
+  max-height: 40vh;
   overflow-y: auto;
   overflow-x: hidden;
   padding: 20px;
 }
+
+.measure-basic {
+  width: 22em;
+  max-height: 65vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 10px;
+}
+
+@media only screen and (max-width: 800px) and (orientation: landscape) {
+  .measure {
+    max-height: 15vh;
+    padding: 0 20px;
+  }
+
+  .measure-basic {
+    max-height: 60vh;
+  }
+}
+
 
 .center {
   margin-right: auto;

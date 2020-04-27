@@ -192,20 +192,31 @@ select {
     font-size: 0.875rem;
 }
 
-.measure-2 {
+.measure-1 {
     width: 22em;
-    max-height: 240px;
+    max-height: 40vh;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 20px;
 }
 
-.measure {
+.measure-2 {
     width: 22em;
-    max-height: 350px;
+    max-height: 25vh;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 20px;
+    padding: 10px;
+}
+
+@media only screen and (max-width: 800px) and (orientation: landscape) {
+    .measure-1 {
+        max-height: 35vh;
+        padding: 0 20px;
+    }
+
+    .measure-2 {
+        max-height: 4rem;
+    }
 }
 
 .center {
