@@ -1,3 +1,12 @@
+# How to use it:
+1. Fork and clone the repo in your pc.
+2. Open the repo's folder (where there is packages.json).
+3. Open your Terminal or cmd or Powershell and run : `npm start`
+4. Once the installation is done, run `npm start` and the app will be hosted in a localhost.
+5. Try the app :) and send me feedbacks in the issues tab.
+___  
+
+# About the app:
 ## Inspiration
 in most of third world countries, people don't use online shopping, instead, they always have to walk to local stores and get what they need, which cannot be the best way ever to buy stuff, because they may not find what they want so fast and have to go to every store in order to get what they need, so I've built this app in order to make it easier for them to see the content of the nearby stores , which saves them time and effort.
 
