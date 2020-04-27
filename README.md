@@ -8,25 +8,25 @@ It shows people the details about the nearby stores or shops such as: the store'
 I build it by creating a whole new project from scratch, after i had the idea and concept in my mind, i tried my best to convert the idea into reality. used new technologies that i didn't know before like firebase and non-relational database.
 
 ## Challenges I ran into
--Having to learn how to use google maps api.
--Finding the best ways to build the app with react without running into hard problems.
--Building the back-end with node.js and fixing bugs that causes the server to crash.
--Choosing between relational and non-relational database.(I've chosen none-relational db at last).
--Making the app look beautiful using the material-ui components.
--Fixing bugs that made me loose my sanity sometimes :)
+- Having to learn how to use google maps api.
+- Finding the best ways to build the app with react without running into hard problems.
+- Building the back-end with node.js and fixing bugs that causes the server to crash.
+- Choosing between relational and non-relational database.(I've chosen none-relational db at last).
+- Making the app look beautiful using the material-ui components.
+- Fixing bugs that made me loose my sanity sometimes :)
 
 ## Accomplishments that I'm proud of
--Being able to build a fullstack real world app by starting from scratch by using React for the front-end, nodejs for the backed and Firebase for the database and authentication
+- Being able to build a fullstack real world app by starting from scratch by using React for the front-end, nodejs for the backed and Firebase for the database and authentication
 
 ## What I learned
--Learned about google-maps-api and being able to know how to use it.
--Learned more about how to use React hooks.
--Learned non-relational database with firebase's cloud db.
--Learned how to make the app secure by using firebase's authentication system.
--Learned how to debug react and nodejs errors properly.
+- Learned about google-maps-api and being able to know how to use it.
+- Learned more about how to use React hooks.
+- Learned non-relational database with firebase's cloud db.
+- Learned how to make the app secure by using firebase's authentication system.
+- Learned how to debug react and nodejs errors properly.
 
 ## What's next for Quick covid-19 shopping app
--Adding more features that can make the app more dynamic and useful.
--Porting the app to android and ios.
--Making the app's backend more powerful.
--Finding a team to develop the app even more and make it more ready to be used by everyone.
+- Adding more features that can make the app more dynamic and useful.
+- Porting the app to android and ios.
+- Making the app's backend more powerful.
+- Finding a team to develop the app even more and make it more ready to be used by everyone.
