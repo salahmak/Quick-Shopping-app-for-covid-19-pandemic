@@ -1,7 +1,7 @@
 # How to use it:
 1. Fork and clone the repo in your pc.
 2. Open the repo's folder (where there is packages.json).
-3. Open your Terminal or cmd or Powershell and run : `npm start`
+3. Open your Terminal or cmd or Powershell and run : `npm install`
 4. Once the installation is done, run `npm start` and the app will be hosted in a localhost.
 5. Try the app :) and send me feedbacks in the issues tab.
 ___  
