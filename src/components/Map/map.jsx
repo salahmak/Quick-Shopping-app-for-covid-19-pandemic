@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo, useCallback } from 'react';
 import StoreCard from '../storeCard/storeCard.jsx'
 import marker from './marker.png'
 import Loading from '../loading/loading.jsx'
@@ -9,27 +9,24 @@ import './map.css'
 
 
 
-const GoogleMap = (props) => {
-
-
-
-
-
+const GoogleMap = memo((props) => {
     const [selectedStore, setSelectedStore] = useState({});
-    const [showItems, setShowItems] = useState(false);
+    const [showStoreCard, setShowStoreCard] = useState(false);
     const [alert, setAlert] = useState({ display: false, msg: "" })
     const [updateLoading, setUpdateLoading] = useState(false)
     const [deleteLoading, setDeleteLoading] = useState(false)
 
-    const onMarkerClick = (props) => {
-        setSelectedStore(props.store)
-        setShowItems(true)
-    }
+    const onMarkerClick = useCallback((i) => {
+        setSelectedStore(props.stores[i])
+        setShowStoreCard(true)
+    }, [])
 
 
 
-    const onItemsClose = () => {
-        setShowItems(false)
+
+
+    const onStoreCardClose = () => {
+        setShowStoreCard(false)
         setSelectedStore({});
         setAlert({ display: false, msg: "" })
         setUpdateLoading(false)
@@ -73,7 +70,7 @@ const GoogleMap = (props) => {
                 if (Array.isArray(res)) {
                     props.handleStoreChange(res)
                     setDeleteLoading(false)
-                    setShowItems(false)
+                    setShowStoreCard(false)
                 } else {
                     console.log("Bad response from server")
                     setAlert({ display: true, msg: res })
@@ -101,7 +98,7 @@ const GoogleMap = (props) => {
                 .then(res => {
                     if (Array.isArray(res)) {
                         props.handleStoreChange(res)
-                        setShowItems(false)
+                        setShowStoreCard(false)
                         setUpdateLoading(false)
                     } else {
                         setAlert({ display: true, msg: res })
@@ -142,21 +139,17 @@ const GoogleMap = (props) => {
 
                     {props.stores.map((store, i) => {
                         return (
-                            <Marker icon={{ url: marker, scaledSize: new props.google.maps.Size(34, 34) }} key={i} user={props.user} store={store} position={store.coords} onClick={(props) => onMarkerClick(props)} />
+                            <Marker icon={{ url: marker, scaledSize: new props.google.maps.Size(34, 34) }} key={store.id} user={props.user} position={store.coords} onClick={() => onMarkerClick(i)} />
                         )
                     })}
-
-                    {showItems && <StoreCard updateLoading={updateLoading} deleteLoading={deleteLoading} alert={alert} deleteStore={deleteStore} onStoreEdit={onStoreEdit} deleteItem={deleteItem} addItem={addItem} handleItemChange={handleItemChange} handleChange={handleInputChange} onItemsClose={onItemsClose} store={selectedStore} user={props.user} />
-                    }
                 </Map>
-
             </div>
 
-            {showItems && <StoreCard updateLoading={updateLoading} deleteLoading={deleteLoading} alert={alert} deleteStore={deleteStore} onStoreEdit={onStoreEdit} deleteItem={deleteItem} addItem={addItem} handleItemChange={handleItemChange} handleChange={handleInputChange} onItemsClose={onItemsClose} store={selectedStore} user={props.user} />
+            {showStoreCard && <StoreCard updateLoading={updateLoading} deleteLoading={deleteLoading} alert={alert} deleteStore={deleteStore} onStoreEdit={onStoreEdit} deleteItem={deleteItem} addItem={addItem} handleItemChange={handleItemChange} handleChange={handleInputChange} onStoreCardClose={onStoreCardClose} store={selectedStore} user={props.user} />
             }
         </>
     );
-}
+})
 
 
 

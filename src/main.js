@@ -49,7 +49,6 @@ const Main = () => {
     const [loading, setLoading] = useState(false)
     const [addMsg, setAddMsg] = useState(false)
     const [tipBox, setTipBox] = useState(false)
-    const [formStage, setFormStage] = useState("basic")
     const [route, setRoute] = useState("login")
 
     useEffect(() => {
@@ -72,16 +71,14 @@ const Main = () => {
                 })
                 .catch(err => {
                     localStorage.removeItem('user')
-                    setUser(initialUser);
                     setLoading(false)
                     setRoute('login')
                 })
         } else {
-            setUser(initialUser);
             setLoading(false)
             setRoute('register')
         }
-    }, [initialUser])
+    }, [])
 
 
 
@@ -106,7 +103,6 @@ const Main = () => {
 
     const onCancel = () => {
         setAddForm(false)
-        setFormStage("basic")
         setCurrentStore(initialStore)
     }
 
@@ -137,7 +133,6 @@ const Main = () => {
         const newStores = [...cloneStores, store]
         setStores(newStores)
         setAddForm(false)
-        setFormStage("basic")
         setCurrentStore(initialStore)
     }
 

@@ -76,7 +76,7 @@ const StoreCard = (props) => {
                         </fieldset>
                     </form>
                     <div className="form-btn-wrapper">
-                        <Button onClick={props.onItemsClose} variant="contained" color="primary">Close</Button>
+                        <Button onClick={props.onStoreCardClose} variant="contained" color="primary">Close</Button>
                     </div>
                 </main>
             </div>
@@ -145,7 +145,7 @@ const StoreCard = (props) => {
                     </div>
                     <div className="form-btn-wrapper">
 
-                        <Button onClick={props.onItemsClose} color="primary">Close</Button>
+                        <Button onClick={props.onStoreCardClose} color="primary">Close</Button>
 
                         <Button disabled={props.deleteLoading || props.updateLoading} onClick={props.deleteStore} variant="outlined" color="secondary" className={classes.button} startIcon={<DeleteIcon />} >
                             {props.deleteLoading && <CircularProgress size={24} />}
