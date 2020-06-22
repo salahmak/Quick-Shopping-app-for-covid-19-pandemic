@@ -3,10 +3,14 @@ import Loading from '../../loading/loading.jsx'
 import { compose, withProps } from "recompose";
 import marker from './marker.png'
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+import dotenv from 'dotenv';
+
+
+dotenv.config();
 
 const GMap = compose(
     withProps({
-        googleMapURL: "https://maps.googleapis.com/maps/api/js?key=AIzaSyDRvYpK6ySVnY1WbKQlrsmO1Oy6pEHq_co&v=3.exp&libraries=geometry,drawing,places",
+        googleMapURL: process.env.REACT_APP_GOOGLE_API_LINK,
         loadingElement: <Loading />,
         containerElement: <div style={{ height: `calc(100vh - 60px)`, width: '100vw', position: 'absolute' }} />,
         mapElement: <div style={{ height: `100%` }} />,
