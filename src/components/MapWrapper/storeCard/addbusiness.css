@@ -1,5 +1,5 @@
 .form-wrapper {
-    width: 100%;
+    width: 100vw !important;
     display: flex;
     justify-content: center;
     z-index: 9;
