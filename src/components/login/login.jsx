@@ -40,7 +40,7 @@ class Login extends Component {
                     this.props.routeChange('home');
                     this.props.loadUser(res, 'auth');
                     if (this.state.remember) {
-                        localStorage.setItem('user', JSON.stringify(res))
+                        localStorage.setItem('id', JSON.stringify(res.id))
                     }
                 } else {
                     this.setState({ alert: true, alertMsg: res, loading: false })

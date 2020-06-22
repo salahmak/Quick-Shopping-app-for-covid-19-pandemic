@@ -1,27 +1,20 @@
-import React, { useState, memo, useCallback } from 'react';
-import StoreCard from '../storeCard/storeCard.jsx'
-import marker from './marker.png'
-import Loading from '../loading/loading.jsx'
-import { Map, GoogleApiWrapper, Marker } from 'google-maps-react';
+import React, { useState } from 'react';
+import GMap from './Map/map.jsx';
+import StoreCard from './storeCard/storeCard.jsx'
+
+const MapWrapper = (props) => {
 
 
-import './map.css'
-
-
-
-const GoogleMap = memo((props) => {
     const [selectedStore, setSelectedStore] = useState({});
     const [showStoreCard, setShowStoreCard] = useState(false);
     const [alert, setAlert] = useState({ display: false, msg: "" })
     const [updateLoading, setUpdateLoading] = useState(false)
     const [deleteLoading, setDeleteLoading] = useState(false)
 
-    const onMarkerClick = useCallback((i) => {
+    const onMarkerClick = (i) => {
         setSelectedStore(props.stores[i])
         setShowStoreCard(true)
-    }, [])
-
-
+    }
 
 
 
@@ -116,46 +109,14 @@ const GoogleMap = memo((props) => {
     }
 
 
-
-    const mapStyles = {
-        width: '100vw',
-        height: 'calc(100vh - 60px)',
-    };
-
-
     return (
         <>
-            <div className="map-out-div">
-                <Map
-                    className="map-wrapper"
-                    google={props.google}
-                    onClick={props.mapClick}
-                    zoom={8}
-                    minZoom={3}
-                    style={mapStyles}
-                    initialCenter={{ lat: 35.77451720813653, lng: 3.15603125 }}
-                >
-                    {JSON.stringify(props.currentStore) !== '{}' && <Marker position={props.currentStore.coords} />}
-
-                    {props.stores.map((store, i) => {
-                        return (
-                            <Marker icon={{ url: marker, scaledSize: new props.google.maps.Size(34, 34) }} key={store.id} user={props.user} position={store.coords} onClick={() => onMarkerClick(i)} />
-                        )
-                    })}
-                </Map>
-            </div>
+            <GMap onMarkerClick={onMarkerClick} mapClick={(e) => props.mapClick(e)} currentStore={props.currentStore} stores={props.stores} />
 
             {showStoreCard && <StoreCard updateLoading={updateLoading} deleteLoading={deleteLoading} alert={alert} deleteStore={deleteStore} onStoreEdit={onStoreEdit} deleteItem={deleteItem} addItem={addItem} handleItemChange={handleItemChange} handleChange={handleInputChange} onStoreCardClose={onStoreCardClose} store={selectedStore} user={props.user} />
             }
         </>
     );
-})
+}
 
-
-
-export default GoogleApiWrapper({
-    apiKey: 'AIzaSyDRvYpK6ySVnY1WbKQlrsmO1Oy6pEHq_co',
-    LoadingContainer: (Loading)
-})(GoogleMap);
-
-
+export default MapWrapper;

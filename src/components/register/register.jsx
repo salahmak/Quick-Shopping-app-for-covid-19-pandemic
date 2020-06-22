@@ -43,7 +43,7 @@ class Register extends Component {
                 if (res.id) {
                     this.props.loadUser(res, 'auth');
                     this.props.routeChange('home');
-                    localStorage.setItem('user', JSON.stringify(res))
+                    localStorage.setItem('id', JSON.stringify(res.id))
                 } else {
                     this.setState({ alert: true, alertMsg: res, loading: false })
                 }

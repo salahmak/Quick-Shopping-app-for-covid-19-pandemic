@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Header from './components/Header/header.jsx';
-import GoogleMap from './components/Map/map.jsx'
+import MapWrapper from './components/MapWrapper/MapWrapper.jsx'
 import AddBtn from './components/addbusiness/addbtn.jsx'
 import AddForm from './components/addbusiness/addForm.jsx'
 import Login from './components/login/login.jsx';
@@ -53,24 +53,27 @@ const Main = () => {
 
     useEffect(() => {
         setLoading(true)
-        let storedUser = JSON.parse(localStorage.getItem('user'))
+        if (localStorage.getItem('user')) {
+            localStorage.removeItem('user')
+        }
+        let storedUser = JSON.parse(localStorage.getItem('id'))
         if (storedUser) {
-            fetch(`https://covid-19-shopping.herokuapp.com/user/${storedUser.id}`)
+            fetch(`https://covid-19-shopping.herokuapp.com/user/${storedUser}`)
                 .then(response => response.json())
                 .then(user => {
-                    localStorage.setItem('user', JSON.stringify(user))
+                    localStorage.setItem('id', JSON.stringify(user.id))
                     fetch('https://covid-19-shopping.herokuapp.com/getstores')
                         .then(response => response.json())
                         .then(stores => {
                             setUser(user);
                             setStores(stores)
                             setLoading(false)
-                            setSignedIn(false)
+                            setSignedIn(true)
                             setRoute('home')
                         })
                 })
                 .catch(err => {
-                    localStorage.removeItem('user')
+                    localStorage.removeItem('id')
                     setLoading(false)
                     setRoute('login')
                 })
@@ -90,10 +93,10 @@ const Main = () => {
         }
     }
 
-    const mapClick = (x, y, lat, lng, event) => {
+    const mapClick = ({ latLng }) => {
         if (marking) {
-            let currentMarker = { lat: lat.latLng.lat().toString(), lng: lat.latLng.lng().toString() }
-            setCurrentStore({ ...currentMarker, coords: currentMarker, id: uuidv1(), ownerId: user.id })
+            let currentMarker = { lat: Number(latLng.lat().toString()), lng: Number(latLng.lng().toString()) }
+            setCurrentStore({ ...currentStore, coords: currentMarker, id: uuidv1(), ownerId: user.id })
             setAddForm(true)
             setMarking(false)
             setAddMsg(false)
@@ -231,7 +234,10 @@ const Main = () => {
 
                 {addMsg && <AddMsg />}
 
-                <GoogleMap handleStoreChange={handleStoreChange} user={user} currentStore={currentStore} stores={filteredStores} mapClick={mapClick} marking={marking} />
+                <div className="map-cont">
+                    <MapWrapper handleStoreChange={handleStoreChange} user={user} currentStore={currentStore} stores={filteredStores} mapClick={mapClick} marking={marking} />
+                </div>
+
 
 
 
