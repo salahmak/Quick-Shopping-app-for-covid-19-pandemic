@@ -37,6 +37,7 @@ class Login extends Component {
             .then(response => response.json())
             .then(res => {
                 if (res.id) {
+                    console.log(this.props);
                     this.props.routeChange('home');
                     this.props.loadUser(res, 'auth');
                     if (this.state.remember) {

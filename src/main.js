@@ -34,7 +34,7 @@ const Main = () => {
         name: "",
         type: "",
         coords: {},
-        items: [{ name: "", quantity: "", price: "" }]
+        items: [{ name: "", quantity: "", price: "" }],
     }
 
     const [currentStore, setCurrentStore] = useState(initialStore)
@@ -42,6 +42,7 @@ const Main = () => {
     const [user, setUser] = useState(initialUser)
 
     const [filter, setFilter] = useState("")
+
 
     const [marking, setMarking] = useState(false)
     const [addForm, setAddForm] = useState(false)
@@ -195,7 +196,8 @@ const Main = () => {
     //search
 
     const handleSearch = (e) => {
-        setFilter(e.target.value)
+        setFilter(e.target.value);
+
     }
 
     //tipbox
@@ -206,7 +208,6 @@ const Main = () => {
 
 
     let filteredStores = stores.filter(({ items }) => items.find(item => item.name.toLowerCase().includes(filter.toLowerCase())));
-
     if (route === 'login') {
         return (
             <>
@@ -235,7 +236,8 @@ const Main = () => {
                 {addMsg && <AddMsg />}
 
                 <div className="map-cont">
-                    <MapWrapper handleStoreChange={handleStoreChange} user={user} currentStore={currentStore} stores={filteredStores} mapClick={mapClick} marking={marking} />
+                    
+                    <MapWrapper handleStoreChange={handleStoreChange} user={user} currentStore={currentStore} stores={filteredStores} mapClick={mapClick} marking={marking}/>
                 </div>
 
 
