@@ -20,15 +20,7 @@ const GMap = compose(
     withScriptjs,
     withGoogleMap
 )((props) => {
-    cord.lat++;
-    cord.lng++;
-    if(props.stores[0]){
-        var centerMap={
-            lat:Number(props.stores[0].coords.lat),
-            lng:Number(props.stores[0].coords.lng)
-        }
 
-    }
     
     return (
         <GoogleMap
